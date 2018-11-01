@@ -1,0 +1,52 @@
+{
+  "name": "vuex-orm-localforage",
+  "version": "0.1.0",
+  "description": "Vuex-ORM Plugin to sync the data against an indexedDB using localforage.",
+  "main": "dist/index.js",
+  "scripts": {
+    "watch": "webpack --watch --mode=production",
+    "build": "webpack --mode=production",
+    "lint": "eslint src/**/*.js test/**/*.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git+https://github.com/eldomagan/vuex-orm-localforage.git"
+  },
+  "keywords": [
+    "vue",
+    "vuex",
+    "vuex-plugin",
+    "vuex-orm",
+    "vuex-orm-plugin",
+    "localforage",
+    "localstorage"
+  ],
+  "author": "Eldo Magan",
+  "license": "MIT",
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.0.0",
+    "@vuex-orm/core": "^0.26.4",
+    "localforage": "^1.7.2",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.22.0",
+    "jest": "^23.5.0",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0"
+  }
+}
