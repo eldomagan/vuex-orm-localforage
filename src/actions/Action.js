@@ -48,7 +48,7 @@ export default class Action {
 
       keys.forEach((key) => {
         if (!record[key]) {
-          record[key] = context.options.generateId();
+          record[key] = context.options.generateId(record);
         }
       });
 
