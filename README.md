@@ -34,7 +34,7 @@ This plugin add some vuex actions to load and persist data in an IndexedDB
 | Action  | Description |
 | ------- | ----------- |
 | $fetch  | Load data from the IndexedDB store associated to a model and persist them in the Vuex Store |
-| $get    | Load data from the IndexedDB store associated |
+| $get    | Load data by id from the IndexedDB store associated and persist it to Vuex Store |
 | $create | Like VuexORM `insert`, but also persist data to IndexedDB |
 | $update | Like VuexORM `update`, but also persist changes to IndexedDB |
 | $delete | Like VuexORM `delete`, but also remove data from IndexedDB |
