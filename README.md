@@ -3,7 +3,7 @@
 
 # Vuex ORM Plugin: LocalForage
 
-VuexORMLocalforage is a plugin for the amazing [VuexORM](https://github.com/vuex-orm/vuex-orm) that let you sync your [Vuex](https://github.com/vuejs/vuex) with an IndexedDB database using [LocalForage](https://github.com/localForage/localForage).
+VuexORMLocalforage is a plugin for the amazing [VuexORM](https://github.com/vuex-orm/vuex-orm) that let you sync your [Vuex](https://github.com/vuejs/vuex) Store with an IndexedDB database using [LocalForage](https://github.com/localForage/localForage).
 
 ## Installation
 ``` js
