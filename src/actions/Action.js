@@ -1,5 +1,5 @@
+import { merge as _merge } from 'lodash-es';
 import localforage from 'localforage';
-import _ from 'lodash';
 import Context from '../common/context';
 
 export default class Action {
@@ -35,7 +35,7 @@ export default class Action {
           });
         }
 
-        model.cachedFields = _.merge({}, commonFields, model.fields());
+        model.cachedFields = _merge({}, commonFields, model.fields());
       }
 
       return model.cachedFields;
