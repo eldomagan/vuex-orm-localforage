@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { merge as _merge, find as _find } from 'lodash-es';
 import { VuexOrmPluginConfig } from '../support/interfaces';
 
 export default class Context {
@@ -7,11 +7,11 @@ export default class Context {
    *
    * @constructor
    * @param {Components} components The Vuex-ORM Components collection
-   * @param {Options} options The options passed to VuexORM.install
+   * @param {VuexOrmPluginConfig} options The options passed to VuexORM.install
    */
   constructor(components, options) {
     this.components = components;
-    this.options = _.merge({}, VuexOrmPluginConfig, options);
+    this.options = _merge({}, VuexOrmPluginConfig, options);
     this.database = options.database;
 
     if (!options.database) {
@@ -22,7 +22,7 @@ export default class Context {
   /**
    * This is called only once and creates a new instance of the Context.
    * @param {Components} components The Vuex-ORM Components collection
-   * @param {Options} options The options passed to VuexORM.install
+   * @param {VuexOrmPluginConfig} options The options passed to VuexORM.install
    * @returns {Context}
    */
   static setup(components, options) {
@@ -43,7 +43,7 @@ export default class Context {
    * @param {object} state
    */
   getModelFromState(state) {
-    return _.find(this.database.entities, {
+    return _find(this.database.entities, {
       name: state.$name,
     }).model;
   }
@@ -53,7 +53,7 @@ export default class Context {
    * @param {Object} entity
    */
   getModelByEntity(entity) {
-    return _.find(this.database.entities, {
+    return _find(this.database.entities, {
       name: entity,
     }).model;
   }

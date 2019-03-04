@@ -1,15 +1,16 @@
+import { map as _map } from 'lodash-es';
 import Context from './common/context';
-import Action from './actions/Action'
-import Fetch from './actions/Fetch'
-import Persist from './actions/Persist'
-import Get from './actions/Get'
-import Destroy from './actions/Destroy'
+import Action from './actions/Action';
+import Fetch from './actions/Fetch';
+import Persist from './actions/Persist';
+import Get from './actions/Get';
+import Destroy from './actions/Destroy';
 
 export default class VuexOrmLocalForage {
   /**
    * @constructor
    * @param {Components} components The Vuex-ORM Components collection
-   * @param {Options} options The options passed to VuexORM.install
+   * @param {VuexOrmPluginConfig} options The options passed to VuexORM.install
    */
   constructor(components, options) {
     Context.setup(components, options);
@@ -41,7 +42,7 @@ export default class VuexOrmLocalForage {
     /**
      * Transform Model and Modules
      */
-    _.map(context.database.entities, entity => {
+    _map(context.database.entities, (entity) => {
       entity.model = Action.transformModel(entity.model);
       return entity;
     });

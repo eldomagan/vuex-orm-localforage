@@ -1,7 +1,7 @@
 import { Database } from '@vuex-orm/core';
 
 /**
- * Genetate Random id
+ * Generate Random id
  * https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript/105074#105074
  */
 function guid() {
@@ -16,11 +16,12 @@ function guid() {
 export const VuexOrmPluginConfig = {
   /**
    * Default VuexORM Database
+   * @param {Database} Instance of VuexORM database
    */
   database: new Database(),
 
   /**
-   * Default DataSrore prefix
+   * @param {string} Default DataStore prefix
    */
   name: 'vuex',
 
@@ -32,7 +33,7 @@ export const VuexOrmPluginConfig = {
   generateId: guid,
 
   /**
-   * Load data from localstore on startup
+   * @param {boolean} Load data from LocalForage on startup
    */
   autoFetch: true,
 
