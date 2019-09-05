@@ -19,6 +19,6 @@ export default class Model {
   static getPersistableFields(model) {
     const fields = model.getFields();
 
-    return Object.keys(fields).filter(key => Model.isFieldAttribute(fields[key]));
+    return Object.keys(fields).filter((key) => Model.isFieldAttribute(fields[key]));
   }
 }

@@ -47,23 +47,23 @@ export default class VuexOrmLocalForage {
       return entity;
     });
 
-    context.components.Model.$fetch = function (config = {}) {
+    context.components.Model.$fetch = function fetchFromLocalStore(config = {}) {
       return this.dispatch('$fetch', config);
     };
 
-    context.components.Model.$get = function (config = {}) {
+    context.components.Model.$get = function getFromLocalStore(config = {}) {
       return this.dispatch('$get', config);
     };
 
-    context.components.Model.$create = function (config = {}) {
+    context.components.Model.$create = function insertIntoLocalStore(config = {}) {
       return this.dispatch('$create', config);
     };
 
-    context.components.Model.$update = function (config = {}) {
+    context.components.Model.$update = function updateToLocalStore(config = {}) {
       return this.dispatch('$update', config);
     };
 
-    context.components.Model.$delete = function (config = {}) {
+    context.components.Model.$delete = function deleteFromLocalStore(config = {}) {
       return this.dispatch('$delete', config);
     };
   }

@@ -25,8 +25,6 @@ export const VuexOrmPluginConfig = {
    */
   name: 'vuex',
 
-  commonFields: {},
-
   /**
    * Generate Id for
    */
@@ -36,12 +34,6 @@ export const VuexOrmPluginConfig = {
    * @param {boolean} Load data from LocalForage on startup
    */
   autoFetch: true,
-
-  /**
-   * @param {*} record
-   */
-  beforeCreate() {
-  },
 };
 
 export default {

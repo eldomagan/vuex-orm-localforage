@@ -10,37 +10,6 @@ export default class Action {
   static transformModel(model) {
     const context = Context.getInstance();
 
-    /**
-     * Add user common fields
-     */
-    model.getFields = () => {
-      if (!model.cachedFields) {
-        const _commonFields = context.options.commonFields;
-        const commonFields = {};
-
-        if (_commonFields) {
-          Object.keys(_commonFields).forEach((fieldName) => {
-            const fieldOptions = _commonFields[fieldName];
-            let type = 'attr';
-            let defaultValue = null;
-
-            if (typeof fieldOptions === 'string') {
-              defaultValue = fieldOptions;
-            } else {
-              type = fieldOptions.type || type;
-              defaultValue = fieldOptions.default;
-            }
-
-            commonFields[fieldName] = model[type](defaultValue);
-          });
-        }
-
-        model.cachedFields = _merge({}, commonFields, model.fields());
-      }
-
-      return model.cachedFields;
-    };
-
     const oldIdFn = model.id;
 
     model.id = (record) => {
