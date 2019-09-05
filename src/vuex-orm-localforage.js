@@ -16,7 +16,6 @@ export default class VuexOrmLocalForage {
     Context.setup(components, options);
     this.setupActions();
     this.setupModels();
-    this.setupLifecycles();
   }
 
   /**
@@ -24,12 +23,13 @@ export default class VuexOrmLocalForage {
    */
   setupActions() {
     const context = Context.getInstance();
+    const { actions } = context.options;
 
-    context.components.Actions.$get = Get.call.bind(Get);
-    context.components.Actions.$fetch = Fetch.call.bind(Fetch);
-    context.components.Actions.$create = Persist.create.bind(Persist);
-    context.components.Actions.$update = Persist.update.bind(Persist);
-    context.components.Actions.$delete = Destroy.call.bind(Destroy);
+    context.components.Actions[actions.$get] = Get.call.bind(Get);
+    context.components.Actions[actions.$fetch] = Fetch.call.bind(Fetch);
+    context.components.Actions[actions.$create] = Persist.create.bind(Persist);
+    context.components.Actions[actions.$update] = Persist.update.bind(Persist);
+    context.components.Actions[actions.$delete] = Destroy.call.bind(Destroy);
   }
 
   /**
@@ -38,6 +38,7 @@ export default class VuexOrmLocalForage {
    */
   setupModels() {
     const context = Context.getInstance();
+    const { actions } = context.options;
 
     /**
      * Transform Model and Modules
@@ -47,32 +48,24 @@ export default class VuexOrmLocalForage {
       return entity;
     });
 
-    context.components.Model.$fetch = function fetchFromLocalStore(config = {}) {
-      return this.dispatch('$fetch', config);
+    context.components.Model[actions.$fetch] = function fetchFromLocalStore(payload = {}) {
+      return this.dispatch(actions.$fetch, payload);
     };
 
-    context.components.Model.$get = function getFromLocalStore(config = {}) {
-      return this.dispatch('$get', config);
+    context.components.Model[actions.$get] = function getFromLocalStore(payload = {}) {
+      return this.dispatch(actions.$get, payload);
     };
 
-    context.components.Model.$create = function insertIntoLocalStore(config = {}) {
-      return this.dispatch('$create', config);
+    context.components.Model[actions.$create] = function insertIntoLocalStore(payload = {}) {
+      return this.dispatch(actions.$create, payload);
     };
 
-    context.components.Model.$update = function updateToLocalStore(config = {}) {
-      return this.dispatch('$update', config);
+    context.components.Model[actions.$update] = function updateToLocalStore(payload = {}) {
+      return this.dispatch(actions.$update, payload);
     };
 
-    context.components.Model.$delete = function deleteFromLocalStore(config = {}) {
-      return this.dispatch('$delete', config);
+    context.components.Model[actions.$delete] = function deleteFromLocalStore(payload = {}) {
+      return this.dispatch(actions.$delete, payload);
     };
-  }
-
-  setupLifecycles() {
-    const context = Context.getInstance();
-
-    if (context.options.beforeCreate) {
-      context.components.Query.on('beforeCreate', context.options.beforeCreate);
-    }
   }
 }

@@ -33,6 +33,17 @@ export const VuexOrmPluginConfig = {
   },
 
   /**
+   *
+   */
+  actions: {
+    $fetch: '$fetch',
+    $get: '$get',
+    $create: '$create',
+    $update: '$update',
+    $delete: '$delete',
+  },
+
+  /**
    * Generate Id for
    */
   generateId: guid,
