@@ -14,6 +14,12 @@ export default class Context {
     this.options = _merge({}, VuexOrmPluginConfig, options);
     this.database = options.database;
 
+    if (!this.options.localforage) {
+      this.options.localforage = {
+        name: this.options.name,
+      };
+    }
+
     if (!options.database) {
       throw new Error('database option is required to initialise!');
     }

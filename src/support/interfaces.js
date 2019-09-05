@@ -23,7 +23,14 @@ export const VuexOrmPluginConfig = {
   /**
    * @param {string} Default DataStore prefix
    */
-  name: 'vuex',
+  name: 'vuex', // Keep for backward compatibilities
+
+  /**
+   * @param {object} localforage config
+   */
+  localforage: {
+    name: 'vuex',
+  },
 
   /**
    * Generate Id for
