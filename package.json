@@ -3,6 +3,7 @@
   "version": "0.1.5",
   "description": "Vuex-ORM Plugin to sync the data against an indexedDB using localforage.",
   "main": "dist/index.js",
+  "module": "src/index.js",
   "scripts": {
     "watch": "webpack --watch --mode=production",
     "build": "webpack --mode=production",

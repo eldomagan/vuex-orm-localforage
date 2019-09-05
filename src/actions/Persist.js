@@ -1,3 +1,4 @@
+import { Model as VuexORMModel } from '@vuex-orm/core';
 import Action from './Action';
 import Model from '../orm/Model';
 import Context from '../common/context';
@@ -11,23 +12,30 @@ export default class Persist extends Action {
    */
   static async call({ dispatch }, payload, action = 'insertOrUpdate') {
     return dispatch(action, payload).then((result) => {
-      const promises = [];
-      const context = Context.getInstance();
+      let records = [];
 
-      Object.keys(result).forEach((entity) => {
-        result[entity].forEach((record) => {
-          const model = context.getModelByEntity(entity);
-          const key = this.getRecordKey(record);
-          const data = Model.getPersistableFields(model).reduce((entry, field) => {
-            entry[field] = record[field];
-            return entry;
-          }, {});
-
-          promises.push(model.$localStore.setItem(key, data));
+      if (Array.isArray(result)) {
+        records = result;
+      } else if (typeof result.$self === 'function') { // FIX: instance of Vuex Model is not working
+        records.push(result);
+      } else {
+        Object.keys(result).forEach((entity) => {
+          result[entity].forEach((record) => {
+            records.push(record);
+          });
         });
-      });
+      }
 
-      return Promise.all(promises).then(() => result);
+      return Promise.all(records.map((record) => {
+        const model = record.$self();
+        const key = this.getRecordKey(record);
+        const data = Model.getPersistableFields(model).reduce((obj, field) => {
+          obj[field] = record[field];
+          return obj;
+        }, {});
+
+        return model.$localStore.setItem(key, data);
+      }));
     });
   }
 
@@ -36,6 +44,7 @@ export default class Persist extends Action {
   }
 
   static update(context, payload) {
-    return this.call(context, payload, 'update');
+    const vuexAction = payload.where ? 'update' : 'insertOrUpdate';
+    return this.call(context, payload, vuexAction);
   }
 }

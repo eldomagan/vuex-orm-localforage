@@ -1,6 +1,6 @@
 import VuexOrmLocalForage from './vuex-orm-localforage';
 
-export default class VuexOrmLocalForagePlugin {
+class VuexOrmLocalForagePlugin {
   /**
    * This is called, when VuexORM.install(VuexOrmLocalForage, options) is called.
    *
@@ -12,3 +12,5 @@ export default class VuexOrmLocalForagePlugin {
     return new VuexOrmLocalForage(components, options);
   }
 }
+
+export default VuexOrmLocalForagePlugin;
