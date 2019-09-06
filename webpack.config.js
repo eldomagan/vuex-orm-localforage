@@ -10,7 +10,6 @@ module.exports = {
     filename: 'vuex-orm-localforage.js',
     libraryExport: 'default',
   },
-  externals: ['@vuex-orm/core'],
   module: {
     rules: [
       {
