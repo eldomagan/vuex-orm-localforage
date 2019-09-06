@@ -7,7 +7,8 @@ module.exports = {
     library: 'VuexORMLocalForage',
     libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
+    filename: 'vuex-orm-localforage.js',
+    libraryExport: 'default',
   },
   externals: ['@vuex-orm/core'],
   module: {

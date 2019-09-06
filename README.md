@@ -50,17 +50,17 @@ This plugin add some vuex actions to load and persist data in an IndexedDB
 | $fetch  | Load data from the IndexedDB store associated to a model and persist them in the Vuex Store |
 | $get    | Load data by id from the IndexedDB store associated and persist it to Vuex Store |
 | $create | Like VuexORM `insertOrUpdate`, but also persist data to IndexedDB |
-| $update | Like VuexORM `update`, but also persist changes to IndexedDB |
+| $update | Update records using VuexORM `update` or `insertOrUpdate` then persist changes to IndexedDB |
 | $delete | Like VuexORM `delete`, but also remove data from IndexedDB |
 
-### Example Usage
+## Example Usage
 
 ```vue
 <template>
   <div>
     <input type="text" v-model="todo">
     <input type="button" @click="addTodo">
-    
+
     <ul>
       <li v-for="todo in todos" :key="todo.id">{{ todo.title }}</li>
     </ul>
@@ -69,25 +69,25 @@ This plugin add some vuex actions to load and persist data in an IndexedDB
 
 <script>
   import Todo from './store/models/Todo'
-  
+
   export default {
     data () {
       return {
         todo: ''
       }
     },
-    
+
     computed: {
       todos () {
         return Todo.query().all()
       }
     },
-    
+
     async mounted () {
       // Load todos from IndexedDB
       await Todo.$fetch()
     },
-    
+
     methods: {
       addTodo () {
         if (this.todo) {
@@ -100,4 +100,80 @@ This plugin add some vuex actions to load and persist data in an IndexedDB
     }
   }
 </script>
+```
+## Configuration Options
+
+These are options you can pass when calling VuexORM.use()
+
+```js
+{
+  // The VuexORM Database instance
+  database,
+
+  /**
+   * LocalForage config options
+   *
+   * @see https://github.com/localForage/localForage#configuration
+   */
+  localforage: {
+    name: 'vuex', // Name is required
+    ...
+  },
+
+  /**
+   * You can override names of actions introduced by this plugin
+   */
+  actions: {
+    $get: '$get',
+    $fetch: '$fetch',
+    $create: '$create',
+    $update: '$update',
+    $delete: '$delete'
+  },
+
+  /**
+   * Function use to generate record id when the primary key is not auto increment
+   */
+  generateId (record) {
+
+  }
+}
+```
+
+You can also override localforage config per model
+
+```js
+class Post extends Model {
+  static localforage = {
+    driver: localforage.WEBSQL,
+    storeName: 'my_posts'
+  }
+}
+```
+
+## Using with other VuexORM Plugin
+
+There may be a conflict when using this plugin along with other VuexORM plugins as they are following the same API (aka they introduced the same actions: $fetch, $create...)
+
+
+Just override actions names like that
+
+```js
+VuexORM.use(VuexORMLocalForage, {
+  database,
+  actions: {
+    $get: '$getFromLocal',
+    $fetch: '$fetchFromLocal',
+    $create: '$createLocally',
+    $update: '$updateLocally',
+    $delete: '$deleteFromLocal'
+  }
+})
+```
+
+Then
+
+```js
+Post.$fetchFromLocal() // instead of Post.$fetch()
+...
 ```
