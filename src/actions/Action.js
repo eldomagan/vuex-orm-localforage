@@ -12,11 +12,9 @@ export default class Action {
 
     model.localforage = _merge({ storeName: model.entity }, model.localforage || {});
 
-    /**
-     * Rewrite model id generator using the one provided by user
-     */
-    const oldIdFn = model.id;
-    model.id = (record) => {
+    const originalFill = model.prototype.$fill;
+
+    model.prototype.$fill = function fill(record) {
       const keys = Array.isArray(model.primaryKey) ? model.primaryKey : [model.primaryKey];
 
       keys.forEach((key) => {
@@ -25,7 +23,7 @@ export default class Action {
         }
       });
 
-      return oldIdFn.call(model, record);
+      originalFill.call(this, record);
     };
 
     model.$localStore = localforage.createInstance(_merge(
