@@ -12,19 +12,22 @@ export default class Action {
 
     model.localforage = _merge({ storeName: model.entity }, model.localforage || {});
 
-    const originalFill = model.prototype.$fill;
+    const originaIdFnName = model.getIndexIdFromRecord ? 'getIndexIdFromRecord' : 'id';
+    const originalIdFn = model[originaIdFnName];
 
-    model.prototype.$fill = function fill(record) {
-      const keys = Array.isArray(model.primaryKey) ? model.primaryKey : [model.primaryKey];
+    if (typeof originalIdFn === 'function') {
+      model[originaIdFnName] = function idFn(record) {
+        const keys = Array.isArray(this.primaryKey) ? this.primaryKey : [this.primaryKey];
 
-      keys.forEach((key) => {
-        if (!record[key]) {
-          record[key] = context.options.generateId(record);
-        }
-      });
+        keys.forEach((key) => {
+          if (!record[key]) {
+            record[key] = context.options.generateId(record);
+          }
+        });
 
-      originalFill.call(this, record);
-    };
+        return originalIdFn.call(model, record);
+      };
+    }
 
     model.$localStore = localforage.createInstance(_merge(
       {},
