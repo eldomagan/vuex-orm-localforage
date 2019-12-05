@@ -8,17 +8,11 @@ export default class Model {
    */
   static isFieldAttribute(field) {
     const context = Context.getInstance();
-
-    return field instanceof context.components.Increment
-      || field instanceof context.components.Attr
-      || field instanceof context.components.String
-      || field instanceof context.components.Number
-      || field instanceof context.components.Boolean;
+    return field instanceof context.components.Attribute;
   }
 
   static getPersistableFields(model) {
     const fields = model.getFields();
-
     return Object.keys(fields).filter((key) => Model.isFieldAttribute(fields[key]));
   }
 }

@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.5.5",
-    "@vuex-orm/core": "^0.32.1",
+    "@vuex-orm/core": "^0.34.1",
     "localforage": "^1.7.3",
     "lodash-es": "^4.17.15"
   },

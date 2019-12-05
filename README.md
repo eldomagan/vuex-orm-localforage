@@ -129,13 +129,6 @@ These are options you can pass when calling VuexORM.use()
     $create: '$create',
     $update: '$update',
     $delete: '$delete'
-  },
-
-  /**
-   * Function use to generate record id when the primary key is not auto increment
-   */
-  generateId (record) {
-
   }
 }
 ```
