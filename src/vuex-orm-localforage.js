@@ -5,6 +5,7 @@ import Fetch from './actions/Fetch';
 import Persist from './actions/Persist';
 import Get from './actions/Get';
 import Destroy from './actions/Destroy';
+import DestroyAll from './actions/DestroyAll';
 
 export default class VuexOrmLocalForage {
   /**
@@ -30,6 +31,7 @@ export default class VuexOrmLocalForage {
     context.components.Actions[actions.$create] = Persist.create.bind(Persist);
     context.components.Actions[actions.$update] = Persist.update.bind(Persist);
     context.components.Actions[actions.$delete] = Destroy.call.bind(Destroy);
+    context.components.Actions[actions.$deleteAll] = DestroyAll.call.bind(DestroyAll);
   }
 
   /**
@@ -66,6 +68,10 @@ export default class VuexOrmLocalForage {
 
     context.components.Model[actions.$delete] = function deleteFromLocalStore(payload = {}) {
       return this.dispatch(actions.$delete, payload);
+    };
+
+    context.components.Model[actions.$deleteAll] = function clearLocalStore() {
+      return this.dispatch(actions.$deleteAll);
     };
   }
 }

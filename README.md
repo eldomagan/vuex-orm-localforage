@@ -52,6 +52,7 @@ This plugin add some vuex actions to load and persist data in an IndexedDB
 | $create | Like VuexORM `insertOrUpdate`, but also persist data to IndexedDB |
 | $update | Update records using VuexORM `update` or `insertOrUpdate` then persist changes to IndexedDB |
 | $delete | Like VuexORM `delete`, but also remove data from IndexedDB |
+| $deleteAll | Like VuexORM `deleteAll`, but also delete all data from IndexedDB |
 
 ## Example Usage
 
@@ -128,7 +129,8 @@ These are options you can pass when calling VuexORM.use()
     $fetch: '$fetch',
     $create: '$create',
     $update: '$update',
-    $delete: '$delete'
+    $delete: '$delete',
+    $deleteAll: '$deleteAll'
   }
 }
 ```
@@ -159,7 +161,8 @@ VuexORM.use(VuexORMLocalForage, {
     $fetch: '$fetchFromLocal',
     $create: '$createLocally',
     $update: '$updateLocally',
-    $delete: '$deleteFromLocal'
+    $delete: '$deleteFromLocal',
+    $deleteAll: '$deleteAllFromLocal'
   }
 })
 ```
