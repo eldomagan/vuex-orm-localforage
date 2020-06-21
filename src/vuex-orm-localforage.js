@@ -1,4 +1,3 @@
-import { map as _map } from 'lodash-es';
 import Context from './common/context';
 import Action from './actions/Action';
 import Fetch from './actions/Fetch';
@@ -43,9 +42,8 @@ export default class VuexOrmLocalForage {
     /**
      * Transform Model and Modules
      */
-    _map(context.database.entities, (entity) => {
+    context.database.entities.forEach((entity) => {
       entity.model = Action.transformModel(entity.model);
-      return entity;
     });
 
     context.components.Model[actions.$fetch] = function fetchFromLocalStore(payload = {}) {

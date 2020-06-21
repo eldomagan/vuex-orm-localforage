@@ -1,8 +1,12 @@
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   entry: './src/index.js',
   target: 'node',
+  externals: [nodeExternals({
+    whitelist: ['deepmerge', 'localforage', /@babel\/runtime/, 'regenerator-runtime'],
+  })],
   output: {
     library: 'VuexORMLocalForage',
     libraryTarget: 'umd',
