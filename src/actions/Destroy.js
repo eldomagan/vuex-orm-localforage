@@ -9,16 +9,19 @@ export default class Destroy extends Action {
    * @param {string} entityName
    */
   static async call({ state, dispatch }, payload) {
-    return dispatch('delete', payload).then((result) => {
-      const context = Context.getInstance();
-      const records = Array.isArray(result) ? result : [result];
-      const model = context.getModelFromState(state);
-      const promises = records.map((record) => {
-        const key = this.getRecordKey(record);
-        return model.$localStore.removeItem(key);
-      });
+    return dispatch('delete', payload).then(async (result) => {
+      if (result) {
+        const context = Context.getInstance();
+        const model = context.getModelFromState(state);
+        const records = Array.isArray(result) ? result : [result];
 
-      return Promise.all(promises).then(() => result);
+        await Promise.all(records.map((record) => {
+          const key = this.getRecordKey(record);
+          return model.$localStore.removeItem(key);
+        }));
+      }
+
+      return result;
     });
   }
 }

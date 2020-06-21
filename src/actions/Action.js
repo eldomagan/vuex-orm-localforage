@@ -1,4 +1,4 @@
-import _merge from 'lodash-es/merge';
+import deepmerge from 'deepmerge';
 import localforage from 'localforage';
 import Context from '../common/context';
 
@@ -8,10 +8,9 @@ export default class Action {
    * @param {object} model
    */
   static transformModel(model) {
-    model.localforage = _merge({ storeName: model.entity }, model.localforage || {});
+    model.localforage = deepmerge({ storeName: model.entity }, model.localforage || {});
 
-    model.$localStore = localforage.createInstance(_merge(
-      {},
+    model.$localStore = localforage.createInstance(deepmerge(
       Context.getInstance().options.localforage,
       model.localforage,
     ));

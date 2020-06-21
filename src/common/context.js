@@ -1,4 +1,4 @@
-import { merge as _merge, find as _find } from 'lodash-es';
+import deepmerge from 'deepmerge';
 import { VuexOrmPluginConfig } from '../support/interfaces';
 
 export default class Context {
@@ -11,7 +11,7 @@ export default class Context {
    */
   constructor(components, options) {
     this.components = components;
-    this.options = _merge({}, VuexOrmPluginConfig, options);
+    this.options = deepmerge({}, VuexOrmPluginConfig, options);
     this.database = options.database;
 
     if (!this.options.localforage) {
@@ -49,9 +49,8 @@ export default class Context {
    * @param {object} state
    */
   getModelFromState(state) {
-    return _find(this.database.entities, {
-      name: state.$name,
-    }).model;
+    const entity = this.database.entities.find((e) => e.name === state.$name);
+    return entity && entity.model;
   }
 
   /**

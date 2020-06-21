@@ -30,15 +30,15 @@
     }
   },
   "dependencies": {
-    "@babel/preset-env": "^7.5.5",
-    "@vuex-orm/core": "^0.34.1",
-    "localforage": "^1.7.3",
-    "lodash-es": "^4.17.15"
+    "deepmerge": "^4.2.2",
+    "localforage": "^1.7.3"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@babel/runtime": "^7.5.5",
+    "@vuex-orm/core": "^0.36.3",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babel-preset-env": "^1.7.0",
@@ -48,6 +48,10 @@
     "eslint-plugin-jest": "^22.17.0",
     "jest": "^24.9.0",
     "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.8"
+    "webpack-cli": "^3.3.8",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "peerDependencies": {
+    "@vuex-orm/core": "^0.36.3"
   }
 }
