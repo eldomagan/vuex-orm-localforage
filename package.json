@@ -1,6 +1,6 @@
 {
   "name": "vuex-orm-localforage",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Vuex-ORM Plugin to sync the data against an indexedDB using localforage.",
   "main": "dist/vuex-orm-localforage.js",
   "module": "src/index.js",
