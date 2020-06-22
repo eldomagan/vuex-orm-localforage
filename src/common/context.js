@@ -11,7 +11,7 @@ export default class Context {
    */
   constructor(components, options) {
     this.components = components;
-    this.options = deepmerge({}, VuexOrmPluginConfig, options);
+    this.options = deepmerge(VuexOrmPluginConfig, options);
     this.database = options.database;
 
     if (!this.options.localforage) {
