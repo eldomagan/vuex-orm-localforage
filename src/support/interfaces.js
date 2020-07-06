@@ -28,6 +28,7 @@ export const VuexOrmPluginConfig = {
     $create: '$create',
     $update: '$update',
     $delete: '$delete',
+    $replace: '$replace',
     $deleteAll: '$deleteAll',
   },
 

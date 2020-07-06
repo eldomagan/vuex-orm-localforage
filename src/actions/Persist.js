@@ -1,7 +1,6 @@
-import { Model as VuexORMModel } from '@vuex-orm/core';
 import Action from './Action';
 import Model from '../orm/Model';
-import Context from '../common/context';
+import DestroyAll from './DestroyAll';
 
 export default class Persist extends Action {
   /**
@@ -10,7 +9,7 @@ export default class Persist extends Action {
    * @param {object} store
    * @param {object} payload
    */
-  static async call({ dispatch }, payload, action = 'insertOrUpdate') {
+  static async call({ state, dispatch }, payload, action = 'insertOrUpdate') {
     return dispatch(action, payload).then((result) => {
       let records = [];
 
@@ -24,6 +23,10 @@ export default class Persist extends Action {
             records.push(record);
           });
         });
+      }
+
+      if (action === 'create') {
+        DestroyAll.clearDB(state)
       }
 
       return Promise.all(records.map((record) => {
@@ -46,5 +49,9 @@ export default class Persist extends Action {
   static update(context, payload) {
     const vuexAction = payload.where ? 'update' : 'insertOrUpdate';
     return this.call(context, payload, vuexAction);
+  }
+
+  static replace(context, payload) {
+    return this.call(context, payload, 'create');
   }
 }

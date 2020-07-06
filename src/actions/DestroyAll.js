@@ -10,11 +10,14 @@ export default class DestroyAll extends Action {
    */
   static async call({ state, dispatch }) {
     return dispatch('deleteAll').then(async (result) => {
-      const context = Context.getInstance();
-      const model = context.getModelFromState(state);
-      model.$localStore.clear();
-
+      DestroyAll.clearDB(state);
       return result;
     });
+  }
+
+  static clearDB(state) {
+    const context = Context.getInstance();
+    const model = context.getModelFromState(state);
+    model.$localStore.clear();
   }
 }
