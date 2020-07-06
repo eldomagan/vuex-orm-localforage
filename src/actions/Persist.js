@@ -26,7 +26,7 @@ export default class Persist extends Action {
       }
 
       if (action === 'create') {
-        DestroyAll.clearDB(state)
+        DestroyAll.clearDB(state);
       }
 
       return Promise.all(records.map((record) => {
