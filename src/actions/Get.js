@@ -14,9 +14,14 @@ export default class Get extends Action {
 
     if (id) {
       return model.$localStore.getItem(id)
-        .then(record => dispatch('insertOrUpdate', {
-          data: record,
-        }));
+        .then(record => {
+          if (!record){
+            return null
+          }
+          return dispatch('insertOrUpdate', {
+            data: record,
+          })
+        });
     }
 
     return null;
